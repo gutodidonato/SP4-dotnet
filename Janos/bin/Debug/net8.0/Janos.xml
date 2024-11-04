@@ -4,6 +4,13 @@
         <name>Janos</name>
     </assembly>
     <members>
+        <member name="M:Janos.Controllers.EmailController.SendEmail(EmailRequest)">
+            <summary>
+            Envia um email com base na solicitação fornecida.
+            </summary>
+            <param name="request">Informações do email (destinatário, assunto e mensagem).</param>
+            <returns>Retorna uma mensagem de sucesso se o email for enviado corretamente.</returns>
+        </member>
         <member name="T:Janos.Migrations.PrimeiraReiniciada">
             <inheritdoc />
         </member>

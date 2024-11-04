@@ -3,7 +3,6 @@ using Janos.Models;
 using Janos.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using System.Collections.Generic;
 using Xunit;
 
 public class ItemControllerTests
@@ -16,6 +15,8 @@ public class ItemControllerTests
         _itemRepositoryMock = new Mock<IItemRepository>();
         _controller = new ItemController(_itemRepositoryMock.Object);
     }
+
+    #region Métodos de Teste
 
     [Fact]
     public void GetById_ReturnsOkResult_WhenItemExists()
@@ -64,10 +65,27 @@ public class ItemControllerTests
     }
 
     [Fact]
+    public void Delete_ReturnsNotFound_WhenItemDoesNotExist()
+    {
+        // Arrange
+        var nome = "Item1";
+        _itemRepositoryMock.Setup(repo => repo.GetById(nome)).Returns((Item)null);
+
+        // Act
+        var result = _controller.Delete(nome);
+
+        // Assert
+        Assert.IsType<NotFoundResult>(result);
+        _itemRepositoryMock.Verify(repo => repo.Delete(nome), Times.Never);
+    }
+
+    [Fact]
     public void Delete_ReturnsNoContent_WhenItemExists()
     {
         // Arrange
         var nome = "Item1";
+        var item = new Item { ItemId = 1, Nome = nome, Tipo = "Type1", Descricao = "Description", Valor = 10.0, Quantidade = 5 };
+        _itemRepositoryMock.Setup(repo => repo.GetById(nome)).Returns(item);
 
         // Act
         var result = _controller.Delete(nome);
@@ -76,4 +94,6 @@ public class ItemControllerTests
         Assert.IsType<NoContentResult>(result);
         _itemRepositoryMock.Verify(repo => repo.Delete(nome), Times.Once);
     }
+
+    #endregion
 }

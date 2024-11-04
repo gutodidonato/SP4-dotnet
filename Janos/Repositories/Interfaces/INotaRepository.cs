@@ -8,6 +8,6 @@ namespace Janos.Repositories.Interfaces
         IEnumerable<Nota> GetAll();
         void Add(Nota nota);
         void Update(Nota nota);
-        void Delete(int id);
+        bool Delete(int id);
     }
 }

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Janos.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1c531ab423e72a68b24c3a39522b0bc7fe796451")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6865b73c6dd8489cfe9332f0991c6b56fe05044b")]
 [assembly: System.Reflection.AssemblyProductAttribute("Janos.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Janos.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

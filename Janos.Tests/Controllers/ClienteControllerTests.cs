@@ -85,13 +85,15 @@ namespace Janos.Tests
             // Arrange
             var clienteId = 1;
             var cliente = new Cliente { ClienteId = clienteId, Nome = "Cliente Atualizado" };
-            _mockRepository.Setup(repo => repo.Update(cliente));
+            _mockRepository.Setup(repo => repo.GetById(clienteId)).Returns(cliente);
+            _mockRepository.Setup(repo => repo.Update(cliente)).Verifiable();
 
             // Act
             var result = _controller.Update(clienteId, cliente);
 
             // Assert
             Assert.IsType<NoContentResult>(result);
+            _mockRepository.Verify(repo => repo.Update(cliente), Times.Once);
         }
 
         [Fact]
@@ -112,7 +114,7 @@ namespace Janos.Tests
         {
             // Arrange
             var clienteId = 1;
-            _mockRepository.Setup(repo => repo.Delete(clienteId));
+            _mockRepository.Setup(repo => repo.GetById(clienteId)).Returns(new Cliente { ClienteId = clienteId });
 
             // Act
             var result = _controller.Delete(clienteId);
@@ -126,13 +128,13 @@ namespace Janos.Tests
         {
             // Arrange
             var clienteId = 1;
-            _mockRepository.Setup(repo => repo.Delete(clienteId));
+            _mockRepository.Setup(repo => repo.GetById(clienteId)).Returns((Cliente)null);
 
             // Act
             var result = _controller.Delete(clienteId);
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NotFoundResult>(result);
         }
     }
 }

@@ -16,11 +16,10 @@ namespace Janos.Controllers
             _lojaRepository = lojaRepository;
         }
 
+        #region Leitura (GET)
+
         [HttpGet("{id}")]
-        [SwaggerOperation(
-            Summary = "Obtém uma loja pelo ID",
-            Description = "Retorna uma loja específica com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Obtém uma loja pelo ID", Description = "Retorna uma loja específica com base no ID fornecido.")]
         [SwaggerResponse(200, "Loja encontrada", typeof(Loja))]
         [SwaggerResponse(404, "Loja não encontrada")]
         public IActionResult GetById(int id)
@@ -32,27 +31,8 @@ namespace Janos.Controllers
             return Ok(loja);
         }
 
-        [HttpPost]
-        [SwaggerOperation(
-            Summary = "Cria uma nova loja",
-            Description = "Adiciona uma nova loja ao banco de dados."
-        )]
-        [SwaggerResponse(201, "Loja criada com sucesso", typeof(Loja))]
-        [SwaggerResponse(400, "Requisição inválida")]
-        public IActionResult Create([FromBody] Loja loja)
-        {
-            if (loja == null)
-                return BadRequest();
-
-            _lojaRepository.Add(loja);
-            return CreatedAtAction(nameof(GetById), new { id = loja.LojaId }, loja);
-        }
-
         [HttpGet("nota/{notaMinima}")]
-        [SwaggerOperation(
-            Summary = "Obtém lojas com nota mínima",
-            Description = "Retorna as lojas que possuem uma nota mínima igual ou maior que a fornecida."
-        )]
+        [SwaggerOperation(Summary = "Obtém lojas com nota mínima", Description = "Retorna as lojas que possuem uma nota mínima igual ou maior que a fornecida.")]
         [SwaggerResponse(200, "Lojas encontradas", typeof(IEnumerable<Loja>))]
         [SwaggerResponse(404, "Nenhuma loja encontrada com essa nota mínima")]
         public IActionResult GetByNotaMinima(int notaMinima)
@@ -64,11 +44,25 @@ namespace Janos.Controllers
             return Ok(lojas);
         }
 
+        #endregion
+
+        #region Manipulação (POST, PUT, DELETE)
+
+        [HttpPost]
+        [SwaggerOperation(Summary = "Cria uma nova loja", Description = "Adiciona uma nova loja ao banco de dados.")]
+        [SwaggerResponse(201, "Loja criada com sucesso", typeof(Loja))]
+        [SwaggerResponse(400, "Requisição inválida")]
+        public IActionResult Create([FromBody] Loja loja)
+        {
+            if (loja == null)
+                return BadRequest();
+
+            _lojaRepository.Add(loja);
+            return CreatedAtAction(nameof(GetById), new { id = loja.LojaId }, loja);
+        }
+
         [HttpPut("{id}")]
-        [SwaggerOperation(
-            Summary = "Atualiza uma loja existente",
-            Description = "Atualiza as informações de uma loja com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Atualiza uma loja existente", Description = "Atualiza as informações de uma loja com base no ID fornecido.")]
         [SwaggerResponse(204, "Loja atualizada com sucesso")]
         [SwaggerResponse(400, "Requisição inválida")]
         public IActionResult Update(int id, [FromBody] Loja loja)
@@ -81,16 +75,19 @@ namespace Janos.Controllers
         }
 
         [HttpDelete("{id}")]
-        [SwaggerOperation(
-            Summary = "Remove uma loja",
-            Description = "Remove uma loja do banco de dados com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Remove uma loja", Description = "Remove uma loja do banco de dados com base no ID fornecido.")]
         [SwaggerResponse(204, "Loja removida com sucesso")]
         [SwaggerResponse(404, "Loja não encontrada")]
         public IActionResult Delete(int id)
         {
+            var loja = _lojaRepository.GetById(id);
+            if (loja == null)
+                return NotFound();
+
             _lojaRepository.Delete(id);
             return NoContent();
         }
+
+        #endregion
     }
 }

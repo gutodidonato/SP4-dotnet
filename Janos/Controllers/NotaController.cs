@@ -16,27 +16,24 @@ namespace Janos.Controllers
             _notaRepository = notaRepository;
         }
 
+        #region Leitura (GET)
+
         [HttpGet("{id}")]
-        [SwaggerOperation(
-            Summary = "Obtém uma nota pelo ID",
-            Description = "Retorna uma nota específica com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Obtém uma nota pelo ID", Description = "Retorna uma nota específica com base no ID fornecido.")]
         [SwaggerResponse(200, "Nota encontrada", typeof(Nota))]
         [SwaggerResponse(404, "Nota não encontrada")]
         public IActionResult GetById(int id)
         {
             var nota = _notaRepository.GetById(id);
-            if (nota == null)
-                return NotFound();
-
-            return Ok(nota);
+            return nota == null ? NotFound() : Ok(nota);
         }
 
+        #endregion
+
+        #region Manipulação (POST, PUT, DELETE)
+
         [HttpPost]
-        [SwaggerOperation(
-            Summary = "Cria uma nova nota",
-            Description = "Adiciona uma nova nota ao banco de dados."
-        )]
+        [SwaggerOperation(Summary = "Cria uma nova nota", Description = "Adiciona uma nova nota ao banco de dados.")]
         [SwaggerResponse(201, "Nota criada com sucesso", typeof(Nota))]
         [SwaggerResponse(400, "Requisição inválida")]
         public IActionResult Create([FromBody] Nota nota)
@@ -49,10 +46,7 @@ namespace Janos.Controllers
         }
 
         [HttpPut("{id}")]
-        [SwaggerOperation(
-            Summary = "Atualiza uma nota existente",
-            Description = "Atualiza as informações de uma nota com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Atualiza uma nota existente", Description = "Atualiza as informações de uma nota com base no ID fornecido.")]
         [SwaggerResponse(204, "Nota atualizada com sucesso")]
         [SwaggerResponse(400, "Requisição inválida")]
         public IActionResult Update(int id, [FromBody] Nota nota)
@@ -65,16 +59,19 @@ namespace Janos.Controllers
         }
 
         [HttpDelete("{id}")]
-        [SwaggerOperation(
-            Summary = "Remove uma nota",
-            Description = "Remove uma nota do banco de dados com base no ID fornecido."
-        )]
+        [SwaggerOperation(Summary = "Remove uma nota", Description = "Remove uma nota do banco de dados com base no ID fornecido.")]
         [SwaggerResponse(204, "Nota removida com sucesso")]
         [SwaggerResponse(404, "Nota não encontrada")]
         public IActionResult Delete(int id)
         {
-            _notaRepository.Delete(id);
+            var result = _notaRepository.Delete(id);
+            if (!result)
+            {
+                return NotFound();
+            }
             return NoContent();
         }
+
+        #endregion
     }
 }

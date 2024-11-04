@@ -1,22 +1,26 @@
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
-using Janos.Models;
-
 
 namespace Janos.Services
 {
-    public class CepService
+    public interface IValidadorCepService
     {
-        public async Task<bool> CepExiste(string cep)
-        {
-            using (var client = new HttpClient())
-            {
-                var response = await client.GetStringAsync($"https://viacep.com.br/ws/{cep}/json/");
-                var endereco = JsonConvert.DeserializeObject<Endereco>(response);
+        Task<bool> ValidarCep(string cep);
+    }
 
-                return !(endereco.Logradouro == null || endereco.Logradouro == "");
-            }
+    public class ValidadorCepService : IValidadorCepService
+    {
+        private readonly HttpClient _httpClient;
+
+        public ValidadorCepService(HttpClient httpClient)
+        {
+            _httpClient = httpClient;
+        }
+
+        public async Task<bool> ValidarCep(string cep)
+        {
+            var response = await _httpClient.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
+            return response.IsSuccessStatusCode;
         }
     }
 }

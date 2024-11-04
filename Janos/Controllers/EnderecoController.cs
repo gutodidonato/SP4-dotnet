@@ -14,17 +14,28 @@ namespace Janos.Controllers
         private readonly IEnderecoRepository _enderecoRepository;
         private readonly HttpClient _httpClient;
 
+        #region Constructor
         public EnderecoController(IEnderecoRepository enderecoRepository, HttpClient httpClient)
         {
             _enderecoRepository = enderecoRepository;
             _httpClient = httpClient;
         }
+        #endregion
+
+        #region Private Methods
 
         private async Task<bool> IsCepValido(string cep)
         {
             var response = await _httpClient.GetAsync($"https://viacep.com.br/ws/{cep}/json/");
             return response.IsSuccessStatusCode;
         }
+
+        private IActionResult NotFoundResponse(string message) => NotFound(message);
+        private IActionResult BadRequestResponse(string message) => BadRequest(message);
+
+        #endregion
+
+        #region Public Actions
 
         [HttpGet("{id}")]
         [SwaggerOperation(
@@ -35,11 +46,11 @@ namespace Janos.Controllers
         [SwaggerResponse(404, "Endereço não encontrado")]
         public IActionResult GetById(int id)
         {
-            var endereco = _enderecoRepository.GetById(id);
-            if (endereco == null)
-                return NotFound();
+        var endereco = _enderecoRepository.GetById(id);
+        if (endereco == null)
+            return NotFound();  
 
-            return Ok(endereco);
+        return Ok(endereco);
         }
 
         [HttpPost]
@@ -52,10 +63,10 @@ namespace Janos.Controllers
         public async Task<IActionResult> Create([FromBody] Endereco endereco)
         {
             if (endereco == null)
-                return BadRequest("Endereço não pode ser nulo.");
+                return BadRequestResponse("Endereço não pode ser nulo.");
 
             if (!await IsCepValido(endereco.Cep))
-                return BadRequest("CEP inválido.");
+                return BadRequestResponse("CEP inválido.");
 
             _enderecoRepository.Add(endereco);
             return CreatedAtAction(nameof(GetById), new { id = endereco.EnderecoId }, endereco);
@@ -72,17 +83,17 @@ namespace Janos.Controllers
         public async Task<IActionResult> Update(int id, [FromBody] Endereco endereco)
         {
             if (endereco == null)
-                return BadRequest("Endereço não pode ser nulo.");
+                return BadRequestResponse("Endereço não pode ser nulo.");
 
             if (id != endereco.EnderecoId)
-                return BadRequest("ID do endereço não coincide com o ID do objeto.");
+                return BadRequestResponse("ID do endereço não coincide com o ID do objeto.");
 
             if (!await IsCepValido(endereco.Cep))
-                return BadRequest("CEP inválido.");
+                return BadRequestResponse("CEP inválido.");
 
             var existingEndereco = _enderecoRepository.GetById(id);
             if (existingEndereco == null)
-                return NotFound("Endereço não encontrado.");
+                return NotFoundResponse("Endereço não encontrado.");
 
             _enderecoRepository.Update(endereco);
             return NoContent();
@@ -99,10 +110,12 @@ namespace Janos.Controllers
         {
             var existingEndereco = _enderecoRepository.GetById(id);
             if (existingEndereco == null)
-                return NotFound("Endereço não encontrado.");
+                return NotFoundResponse("Endereço não encontrado.");
 
             _enderecoRepository.Delete(id);
             return NoContent();
         }
+
+        #endregion
     }
 }

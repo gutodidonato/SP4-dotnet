@@ -4620,11 +4620,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos\\Janos.csproj",
+      "projectUniqueName": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos\\Janos.csproj",
       "projectName": "Janos",
-      "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos\\Janos.csproj",
+      "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos\\Janos.csproj",
       "packagesPath": "C:\\Users\\Guto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos\\obj\\",
+      "outputPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Guto\\AppData\\Roaming\\NuGet\\NuGet.Config",

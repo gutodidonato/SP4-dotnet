@@ -16,22 +16,28 @@ namespace Janos.Repositories
 
         public Loja GetById(int id)
         {
-            return _context.Lojas.Include(l => l.Endereco).Include(l => l.Notas).FirstOrDefault(l => l.LojaId == id);
+            return _context.Lojas
+                .Include(l => l.Endereco)
+                .Include(l => l.Notas)
+                .FirstOrDefault(l => l.LojaId == id);
         }
 
         public IEnumerable<Loja> GetAll()
         {
-            return _context.Lojas.Include(l => l.Endereco).Include(l => l.Notas).ToList();
+            return _context.Lojas
+                .Include(l => l.Endereco)
+                .Include(l => l.Notas)
+                .ToList();
         }
 
-            public IEnumerable<Loja> GetByNotaMinima(int notaMinima) // Novo método
-    {
-        return _context.Lojas
-            .Include(l => l.Endereco)
-            .Include(l => l.Notas)
-            .Where(l => l.Notas.Any(n => n.Valor >= notaMinima)) 
-            .ToList();
-    }
+        public IEnumerable<Loja> GetByNotaMinima(int notaMinima)
+        {
+            return _context.Lojas
+                .Include(l => l.Endereco)
+                .Include(l => l.Notas)
+                .Where(l => l.Notas.Any(n => n.Valor >= notaMinima))
+                .ToList();
+        }
 
         public void Add(Loja loja)
         {

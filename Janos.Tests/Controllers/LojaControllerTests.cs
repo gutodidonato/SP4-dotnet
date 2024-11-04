@@ -103,15 +103,18 @@ namespace Janos.Tests.Controllers
 
         [Fact]
         public void Delete_ReturnsNoContent_WhenLojaIsDeleted()
-        {
-            // Arrange
-            var lojaId = 1;
+{
+    // Arrange
+    var lojaId = 1;
+    var loja = new Loja { LojaId = lojaId, Nome = "Loja" };
+    
+    _lojaRepositoryMock.Setup(repo => repo.GetById(lojaId)).Returns(loja);  
+    
+    // Act
+    var result = _controller.Delete(lojaId);
 
-            // Act
-            var result = _controller.Delete(lojaId);
-
-            // Assert
-            Assert.IsType<NoContentResult>(result);
-        }
+    // Assert
+    Assert.IsType<NoContentResult>(result);
+}
     }
 }

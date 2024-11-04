@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
 using System.Net.Http;
-using System.Net;
 
 namespace Janos.Tests.Controllers
 {
@@ -13,14 +12,17 @@ namespace Janos.Tests.Controllers
     {
         private readonly EnderecoController _controller;
         private readonly Mock<IEnderecoRepository> _mockRepo;
-        private readonly HttpClient _httpClient;
+        private readonly Mock<HttpMessageHandler> _httpMessageHandler;
 
         public EnderecoControllerTests()
         {
             _mockRepo = new Mock<IEnderecoRepository>();
-            _httpClient = new HttpClient(); 
-            _controller = new EnderecoController(_mockRepo.Object, _httpClient); 
+            _httpMessageHandler = new Mock<HttpMessageHandler>();
+            var httpClient = new HttpClient(_httpMessageHandler.Object);
+            _controller = new EnderecoController(_mockRepo.Object, httpClient);
         }
+
+        #region Tests
 
         [Fact]
         public void GetById_ReturnsOkResult_WhenEnderecoExists()
@@ -51,5 +53,6 @@ namespace Janos.Tests.Controllers
             Assert.IsType<NotFoundResult>(result);
         }
 
-}
+        #endregion
+    }
 }

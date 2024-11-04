@@ -14,36 +14,48 @@ namespace Janos.Repositories
             _context = context;
         }
 
+        #region GetById
         public Nota GetById(int id)
         {
             return _context.Notas.Find(id);
         }
+        #endregion
 
+        #region GetAll
         public IEnumerable<Nota> GetAll()
         {
             return _context.Notas.ToList();
         }
+        #endregion
 
+        #region Add
         public void Add(Nota nota)
         {
             _context.Notas.Add(nota);
             _context.SaveChanges();
         }
+        #endregion
 
+        #region Update
         public void Update(Nota nota)
         {
             _context.Notas.Update(nota);
             _context.SaveChanges();
         }
+        #endregion
 
-        public void Delete(int id)
+        #region Delete
+        public bool Delete(int id)
         {
             var nota = _context.Notas.Find(id);
             if (nota != null)
             {
                 _context.Notas.Remove(nota);
                 _context.SaveChanges();
+                return true; 
             }
+            return false; 
         }
+        #endregion
     }
 }

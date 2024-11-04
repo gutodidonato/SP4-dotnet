@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Janos.Tests
-build_property.ProjectDir = C:\Users\Guto\Desktop\DotNet\Janos2\Janos.Tests\
+build_property.ProjectDir = C:\Users\Guto\Desktop\DotNet\Sprint4\SP4-dotnet\Janos.Tests\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

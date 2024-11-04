@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "r9mB94AJRUM=",
+  "dgSpecHash": "+qgv/McJw8o=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos.Tests\\Janos.Tests.csproj",
+  "projectFilePath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos.Tests\\Janos.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Guto\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\Guto\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

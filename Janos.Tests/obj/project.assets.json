@@ -4286,11 +4286,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos.Tests\\Janos.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos.Tests\\Janos.Tests.csproj",
       "projectName": "Janos.Tests",
-      "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos.Tests\\Janos.Tests.csproj",
+      "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos.Tests\\Janos.Tests.csproj",
       "packagesPath": "C:\\Users\\Guto\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos.Tests\\obj\\",
+      "outputPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Guto\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -4307,8 +4307,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos\\Janos.csproj": {
-              "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Janos2\\Janos\\Janos.csproj"
+            "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos\\Janos.csproj": {
+              "projectPath": "C:\\Users\\Guto\\Desktop\\DotNet\\Sprint4\\SP4-dotnet\\Janos\\Janos.csproj"
             }
           }
         }

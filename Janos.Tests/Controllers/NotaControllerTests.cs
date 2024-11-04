@@ -3,7 +3,6 @@ using Janos.Models;
 using Janos.Repositories.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
-using Swashbuckle.AspNetCore.Annotations;
 using Xunit;
 
 namespace Janos.Tests.Controllers
@@ -19,6 +18,7 @@ namespace Janos.Tests.Controllers
             _controller = new NotaController(_notaRepositoryMock.Object);
         }
 
+        #region GetById Tests
         [Fact]
         public void GetById_ReturnsOk_WhenNotaExists()
         {
@@ -49,7 +49,9 @@ namespace Janos.Tests.Controllers
             // Assert
             Assert.IsType<NotFoundResult>(result);
         }
+        #endregion
 
+        #region Create Tests
         [Fact]
         public void Create_ReturnsCreatedAtAction_WhenNotaIsValid()
         {
@@ -65,7 +67,9 @@ namespace Janos.Tests.Controllers
             Assert.Equal(201, result.StatusCode);
             Assert.Equal(nota, result.Value);
         }
+        #endregion
 
+        #region Update Tests
         [Fact]
         public void Update_ReturnsNoContent_WhenNotaIsValid()
         {
@@ -79,19 +83,21 @@ namespace Janos.Tests.Controllers
             // Assert
             Assert.IsType<NoContentResult>(result);
         }
+        #endregion
 
+        #region Delete Tests
         [Fact]
         public void Delete_ReturnsNoContent_WhenNotaExists()
         {
             // Arrange
             var notaId = 1;
-            _notaRepositoryMock.Setup(repo => repo.Delete(notaId));
+            _notaRepositoryMock.Setup(repo => repo.Delete(notaId)).Returns(true); 
 
             // Act
             var result = _controller.Delete(notaId);
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NoContentResult>(result); 
         }
 
         [Fact]
@@ -99,13 +105,14 @@ namespace Janos.Tests.Controllers
         {
             // Arrange
             var notaId = 1;
-            _notaRepositoryMock.Setup(repo => repo.Delete(notaId));
+            _notaRepositoryMock.Setup(repo => repo.Delete(notaId)).Returns(false); 
 
             // Act
             var result = _controller.Delete(notaId);
 
             // Assert
-            Assert.IsType<NoContentResult>(result);
+            Assert.IsType<NotFoundResult>(result); 
         }
+        #endregion
     }
 }

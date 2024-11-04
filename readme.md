@@ -80,8 +80,10 @@ O projeto segue práticas de **Clean Code** e os princípios **SOLID**, fundamen
    ```bash
    dotnet test
 
-
 RESTful APIs utilizadas:
 
 1. Sendgrid
 2. viacep
+
+
+Informações completas no txt

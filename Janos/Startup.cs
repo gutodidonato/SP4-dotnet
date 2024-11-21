@@ -28,7 +28,7 @@ namespace Janos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseOracle(Configuration.GetConnectionString("OracleConnection")));
+                options.UseOracle(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IClienteRepository, ClienteRepository>();
             services.AddScoped<ILojaRepository, LojaRepository>();
